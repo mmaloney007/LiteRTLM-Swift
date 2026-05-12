@@ -54,6 +54,7 @@ public final class LiteRTLMEngine: @unchecked Sendable {
 
     private let modelPath: URL
     private let backend: String
+    private let enableSpeculativeDecoding: Bool?
 
     private var engine: OpaquePointer?  // LiteRtLmEngine*
     private let inferenceQueue = DispatchQueue(label: "com.litertlm.inference", qos: .userInitiated)
@@ -66,9 +67,16 @@ public final class LiteRTLMEngine: @unchecked Sendable {
     /// - Parameters:
     ///   - modelPath: Path to the `.litertlm` model file on disk.
     ///   - backend: Compute backend — `"cpu"` or `"gpu"` (GPU uses Metal on iOS).
-    public init(modelPath: URL, backend: String = "cpu") {
+    ///   - enableSpeculativeDecoding: Optional Gemma 4 MTP/speculative decoding
+    ///     override. Pass nil to preserve the runtime default.
+    public init(
+        modelPath: URL,
+        backend: String = "cpu",
+        enableSpeculativeDecoding: Bool? = nil
+    ) {
         self.modelPath = modelPath
         self.backend = backend
+        self.enableSpeculativeDecoding = enableSpeculativeDecoding
     }
 
     deinit {
@@ -160,6 +168,15 @@ public final class LiteRTLMEngine: @unchecked Sendable {
                         }
 
                         litert_lm_engine_settings_set_max_num_tokens(settings, 4096)
+
+                        if let enableSpeculativeDecoding = self.enableSpeculativeDecoding {
+                            litert_lm_engine_settings_set_enable_speculative_decoding(
+                                settings, enableSpeculativeDecoding
+                            )
+                            Self.log.info(
+                                "Speculative decoding requested: \(enableSpeculativeDecoding)"
+                            )
+                        }
 
                         let cacheDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
                             .appendingPathComponent("litertlm_cache").path

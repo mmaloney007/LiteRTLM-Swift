@@ -182,6 +182,15 @@ LITERT_LM_C_API_EXPORT
 void litert_lm_engine_settings_set_max_num_tokens(
     LiteRtLmEngineSettings* settings, int max_num_tokens);
 
+// Enables or disables Gemma 4 speculative decoding / MTP when the loaded model
+// and selected backend support it.
+//
+// @param settings The engine settings.
+// @param enable_speculative_decoding Whether speculative decoding is enabled.
+LITERT_LM_C_API_EXPORT
+void litert_lm_engine_settings_set_enable_speculative_decoding(
+    LiteRtLmEngineSettings* settings, bool enable_speculative_decoding);
+
 // Sets whether the engine should load different sections of the litertlm file
 // in parallel. Defaults to true.
 //
