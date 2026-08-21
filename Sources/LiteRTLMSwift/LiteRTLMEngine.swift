@@ -58,6 +58,18 @@ public final class LiteRTLMEngine: @unchecked Sendable {
 
     private var engine: OpaquePointer?  // LiteRtLmEngine*
     private let inferenceQueue = DispatchQueue(label: "com.litertlm.inference", qos: .userInitiated)
+    private let conversationControlQueue = DispatchQueue(
+        label: "com.litertlm.conversation-control",
+        qos: .userInitiated
+    )
+    private let managedConversationLock = NSLock()
+    private var managedConversations: [UUID: LiteRTLMConversationStorage] = [:]
+    private var isUnloadingManagedConversations = false
+
+    #if DEBUG
+    @ObservationIgnored
+    internal private(set) var successfulNativeEngineCreationCount = 0
+    #endif
 
     private static let log = Logger(subsystem: "LiteRTLMSwift", category: "Engine")
 
@@ -86,9 +98,18 @@ public final class LiteRTLMEngine: @unchecked Sendable {
         let conv = multimodalConversation
         let convCfg = multimodalConvConfig
         let convSesCfg = multimodalSessionConfig
+        let managed = managedConversationSnapshot()
         let queue = inferenceQueue
-        if eng != nil || ses != nil || conv != nil {
+        if eng != nil || ses != nil || conv != nil || !managed.isEmpty {
             queue.async {
+                for storage in managed {
+                    if let resources = storage.takeResourcesForDeletion() {
+                        litert_lm_conversation_delete(resources.conversation)
+                        litert_lm_conversation_config_delete(resources.conversationConfig)
+                        litert_lm_session_config_delete(resources.sessionConfig)
+                    }
+                    storage.markClosed()
+                }
                 if let s = ses { litert_lm_session_delete(s) }
                 if let c = sesCfg { litert_lm_session_config_delete(c) }
                 if let c = conv { litert_lm_conversation_delete(c) }
@@ -210,6 +231,10 @@ public final class LiteRTLMEngine: @unchecked Sendable {
                         }
                         litert_lm_engine_settings_delete(settings)
 
+                        #if DEBUG
+                        self.successfulNativeEngineCreationCount += 1
+                        #endif
+
                         continuation.resume(returning: createdEngine)
                     } catch {
                         continuation.resume(throwing: error)
@@ -217,7 +242,10 @@ public final class LiteRTLMEngine: @unchecked Sendable {
                 }
             }
 
-            inferenceQueue.sync { self.engine = createdEngine }
+            inferenceQueue.sync {
+                self.engine = createdEngine
+                self.setManagedConversationUnloadState(false)
+            }
 
             let elapsed = CFAbsoluteTimeGetCurrent() - startTime
             Self.log.info("Model loaded in \(String(format: "%.1f", elapsed))s")
@@ -233,7 +261,21 @@ public final class LiteRTLMEngine: @unchecked Sendable {
     /// Unload the model to free memory.
     @MainActor
     public func unload() {
+        setManagedConversationUnloadState(true)
+        let managed = managedConversationSnapshot()
+        for storage in managed {
+            _ = storage.beginClose()
+            let request = storage.requestCancellation()
+            scheduleNativeCancellationIfNeeded(request, storage: storage)
+        }
+        for storage in managed {
+            storage.waitForActiveGenerationBlocking()
+        }
+
         inferenceQueue.sync {
+            for storage in managedConversationSnapshot() {
+                deleteManagedConversation(storage)
+            }
             if let s = chatSession {
                 litert_lm_session_delete(s)
                 chatSession = nil
@@ -259,6 +301,396 @@ public final class LiteRTLMEngine: @unchecked Sendable {
         }
         status = .notLoaded
         Self.log.info("Model unloaded")
+    }
+
+    // MARK: - Resident Conversation
+
+    /// Create the one resident persistent conversation supported by this engine.
+    ///
+    /// The shipped LiteRT-LM v0.11.0 binary (`db33d2c`) enforces this native
+    /// limit at `engine.cc:923`: "E0000 engine.cc:923] Failed to create
+    /// conversation: FAILED_PRECONDITION: A session already exists. Only one
+    /// session is supported at a time. Please delete the existing session before
+    /// creating a new one."
+    ///
+    /// Call and await `LiteRTLMConversation.close()` before creating the next
+    /// handle. A second call while the slot is occupied throws
+    /// `LiteRTLMError.conversationSlotOccupied`; it does not replace the resident
+    /// handle or construct another engine.
+    public func makeConversation(
+        temperature: Float = 0.3,
+        maxTokens: Int = 512
+    ) async throws -> LiteRTLMConversation {
+        try ensureReady()
+        guard temperature.isFinite, temperature >= 0 else {
+            throw LiteRTLMError.inferenceFailure("Conversation temperature must be finite and nonnegative")
+        }
+        guard let nativeMaxTokens = Int32(exactly: maxTokens), nativeMaxTokens > 0 else {
+            throw LiteRTLMError.inferenceFailure("Conversation maxTokens must fit Int32 and be positive")
+        }
+
+        let storage = try await withCheckedThrowingContinuation {
+            (continuation: CheckedContinuation<LiteRTLMConversationStorage, any Error>) in
+            inferenceQueue.async { [self] in
+                do {
+                    guard managedConversationOperationsAllowed(), let engine else {
+                        throw LiteRTLMError.modelNotLoaded
+                    }
+                    guard !managedConversationSlotOccupied() else {
+                        throw LiteRTLMError.conversationSlotOccupied
+                    }
+                    guard let sessionConfig = litert_lm_session_config_create() else {
+                        throw LiteRTLMError.inferenceFailure("Failed to create conversation session config")
+                    }
+                    litert_lm_session_config_set_max_output_tokens(sessionConfig, nativeMaxTokens)
+                    var samplerParams = LiteRtLmSamplerParams(
+                        type: kTopP,
+                        top_k: 40,
+                        top_p: 0.95,
+                        temperature: temperature,
+                        seed: 0
+                    )
+                    litert_lm_session_config_set_sampler_params(sessionConfig, &samplerParams)
+
+                    guard let conversationConfig = litert_lm_conversation_config_create() else {
+                        litert_lm_session_config_delete(sessionConfig)
+                        throw LiteRTLMError.inferenceFailure("Failed to create conversation config")
+                    }
+                    litert_lm_conversation_config_set_session_config(
+                        conversationConfig, sessionConfig
+                    )
+                    guard let conversation = litert_lm_conversation_create(
+                        engine, conversationConfig
+                    ) else {
+                        litert_lm_conversation_config_delete(conversationConfig)
+                        litert_lm_session_config_delete(sessionConfig)
+                        throw LiteRTLMError.inferenceFailure("Failed to create conversation")
+                    }
+
+                    let storage = LiteRTLMConversationStorage(
+                        resources: LiteRTLMConversationNativeResources(
+                            conversation: conversation,
+                            conversationConfig: conversationConfig,
+                            sessionConfig: sessionConfig
+                        )
+                    )
+                    registerManagedConversation(storage)
+                    continuation.resume(returning: storage)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+        return LiteRTLMConversation(owner: self, storage: storage)
+    }
+
+    /// Count tokens using the tokenizer embedded in the currently loaded model.
+    public func tokenCount(_ text: String) throws -> Int {
+        try ensureReady()
+        guard !text.utf8.contains(0) else {
+            throw LiteRTLMError.inferenceFailure("Tokenization input contains an embedded NUL byte")
+        }
+
+        return try inferenceQueue.sync {
+            guard managedConversationOperationsAllowed(), let engine else {
+                throw LiteRTLMError.modelNotLoaded
+            }
+            guard let result = text.withCString({ litert_lm_engine_tokenize(engine, $0) }) else {
+                throw LiteRTLMError.inferenceFailure("Loaded-model tokenization failed")
+            }
+            defer { litert_lm_tokenize_result_delete(result) }
+            return Int(litert_lm_tokenize_result_get_num_tokens(result))
+        }
+    }
+
+    func send(
+        _ text: String,
+        on storage: LiteRTLMConversationStorage
+    ) async throws -> LiteRTLMConversationResponse {
+        guard managedConversationOperationsAllowed() else {
+            throw LiteRTLMError.modelNotLoaded
+        }
+        let generation = try storage.queueGeneration()
+        let messageJSON = Self.buildMultimodalMessageJSON(
+            audioPaths: [],
+            imagePaths: [],
+            text: text
+        )
+
+        return try await withCheckedThrowingContinuation {
+            (continuation: CheckedContinuation<LiteRTLMConversationResponse, any Error>) in
+            inferenceQueue.async { [self] in
+                let context = LiteRTLMConversationCallbackContext {
+                    storage.nativeTerminalDidArrive(generation: generation)
+                }
+                let contextPointer = Unmanaged.passRetained(context).toOpaque()
+
+                switch storage.prepareNativeStart(generation: generation) {
+                case .start(let conversation):
+                    let result = messageJSON.withCString { messagePointer in
+                        litert_lm_conversation_send_message_stream(
+                            conversation,
+                            messagePointer,
+                            nil,
+                            liteRTLMManagedConversationCallback,
+                            contextPointer
+                        )
+                    }
+                    let conversationToCancel = storage.nativeStartDidReturn(
+                        generation: generation,
+                        succeeded: result == 0
+                    )
+                    if let conversationToCancel {
+                        scheduleNativeCancellation(
+                            conversation: conversationToCancel,
+                            generation: generation,
+                            storage: storage
+                        )
+                    }
+                    if result != 0, context.failedToStart(code: result) {
+                        context.signalTerminal()
+                        Unmanaged<LiteRTLMConversationCallbackContext>
+                            .fromOpaque(contextPointer).release()
+                    }
+
+                case .cancelledBeforeStart:
+                    if context.cancelledBeforeStart() {
+                        context.signalTerminal()
+                        Unmanaged<LiteRTLMConversationCallbackContext>
+                            .fromOpaque(contextPointer).release()
+                    }
+
+                case .unavailable:
+                    if context.failedToStart(code: -1) {
+                        context.signalTerminal()
+                        Unmanaged<LiteRTLMConversationCallbackContext>
+                            .fromOpaque(contextPointer).release()
+                    }
+                }
+
+                let terminal = context.waitForTerminal()
+                finishManagedConversationGeneration(
+                    storage: storage,
+                    generation: generation,
+                    terminal: terminal,
+                    continuation: continuation
+                )
+            }
+        }
+    }
+
+    func cancel(_ storage: LiteRTLMConversationStorage) async {
+        let request = storage.requestCancellation()
+        scheduleNativeCancellationIfNeeded(request, storage: storage)
+        guard let barrier = request.barrier else { return }
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            barrier.notify(queue: conversationControlQueue) {
+                continuation.resume()
+            }
+        }
+    }
+
+    func close(_ storage: LiteRTLMConversationStorage) async {
+        switch storage.beginClose() {
+        case .closed:
+            return
+        case .wait(let closeBarrier):
+            await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+                closeBarrier.notify(queue: conversationControlQueue) {
+                    continuation.resume()
+                }
+            }
+            return
+        case .perform:
+            await cancel(storage)
+        }
+
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            inferenceQueue.async { [self] in
+                deleteManagedConversation(storage)
+                continuation.resume()
+            }
+        }
+    }
+
+    func release(_ storage: LiteRTLMConversationStorage) {
+        let owner = self
+        Task {
+            await owner.close(storage)
+        }
+    }
+
+    private func finishManagedConversationGeneration(
+        storage: LiteRTLMConversationStorage,
+        generation: UInt64,
+        terminal: LiteRTLMConversationTerminal,
+        continuation: CheckedContinuation<LiteRTLMConversationResponse, any Error>
+    ) {
+        storage.waitForNativeCancellationBlocking(generation: generation)
+        do {
+            guard let conversation = storage.conversationForBenchmark(generation: generation) else {
+                throw LiteRTLMError.inferenceFailure("Conversation closed before terminal metrics capture")
+            }
+            let benchmark = try captureConversationBenchmark(conversation)
+            let proposedOutcome: LiteRTLMConversationMetrics.Outcome = terminal.errorMessage == nil
+                ? .completed
+                : .failed
+            let metrics = try storage.completeGeneration(
+                generation: generation,
+                proposedOutcome: proposedOutcome,
+                benchmark: benchmark
+            )
+
+            switch metrics.outcome {
+            case .completed:
+                let text = terminal.chunks
+                    .map(Self.extractTextFromConversationResponse)
+                    .joined()
+                continuation.resume(
+                    returning: LiteRTLMConversationResponse(text: text, metrics: metrics)
+                )
+            case .cancelled:
+                continuation.resume(throwing: CancellationError())
+            case .failed:
+                continuation.resume(
+                    throwing: LiteRTLMError.inferenceFailure(
+                        terminal.errorMessage ?? "Conversation generation failed"
+                    )
+                )
+            }
+        } catch {
+            storage.failGenerationWithoutMetrics(generation: generation)
+            continuation.resume(throwing: error)
+        }
+    }
+
+    private func captureConversationBenchmark(
+        _ conversation: OpaquePointer
+    ) throws -> LiteRTLMConversationBenchmarkSnapshot {
+        guard let info = litert_lm_conversation_get_benchmark_info(conversation) else {
+            throw LiteRTLMError.inferenceFailure("Native conversation benchmark info is unavailable")
+        }
+        defer { litert_lm_benchmark_info_delete(info) }
+
+        let nativePrefillTurns = litert_lm_benchmark_info_get_num_prefill_turns(info)
+        let nativeDecodeTurns = litert_lm_benchmark_info_get_num_decode_turns(info)
+        guard nativePrefillTurns >= 0, nativeDecodeTurns >= 0 else {
+            throw LiteRTLMError.inferenceFailure("Native benchmark returned a negative turn count")
+        }
+        let prefillTurns = Int(nativePrefillTurns)
+        let decodeTurns = Int(nativeDecodeTurns)
+        var prefillTokenCounts: [Int] = []
+        var decodeTokenCounts: [Int] = []
+        var prefillRates: [Double] = []
+        var decodeRates: [Double] = []
+        prefillTokenCounts.reserveCapacity(prefillTurns)
+        decodeTokenCounts.reserveCapacity(decodeTurns)
+        prefillRates.reserveCapacity(prefillTurns)
+        decodeRates.reserveCapacity(decodeTurns)
+
+        for index in 0..<prefillTurns {
+            guard let nativeIndex = Int32(exactly: index) else {
+                throw LiteRTLMError.inferenceFailure("Native prefill turn index overflow")
+            }
+            prefillTokenCounts.append(
+                Int(litert_lm_benchmark_info_get_prefill_token_count_at(info, nativeIndex))
+            )
+            prefillRates.append(
+                litert_lm_benchmark_info_get_prefill_tokens_per_sec_at(info, nativeIndex)
+            )
+        }
+        for index in 0..<decodeTurns {
+            guard let nativeIndex = Int32(exactly: index) else {
+                throw LiteRTLMError.inferenceFailure("Native decode turn index overflow")
+            }
+            decodeTokenCounts.append(
+                Int(litert_lm_benchmark_info_get_decode_token_count_at(info, nativeIndex))
+            )
+            decodeRates.append(
+                litert_lm_benchmark_info_get_decode_tokens_per_sec_at(info, nativeIndex)
+            )
+        }
+
+        return LiteRTLMConversationBenchmarkSnapshot(
+            prefillTokenCounts: prefillTokenCounts,
+            decodeTokenCounts: decodeTokenCounts,
+            prefillTokensPerSecond: prefillRates,
+            decodeTokensPerSecond: decodeRates,
+            timeToFirstToken: litert_lm_benchmark_info_get_time_to_first_token(info),
+            totalInitializationTime:
+                litert_lm_benchmark_info_get_total_init_time_in_second(info)
+        )
+    }
+
+    private func scheduleNativeCancellationIfNeeded(
+        _ request: LiteRTLMConversationStorage.CancellationRequest,
+        storage: LiteRTLMConversationStorage
+    ) {
+        guard let conversation = request.conversationToCancel,
+              let generation = request.generation else { return }
+        scheduleNativeCancellation(
+            conversation: conversation,
+            generation: generation,
+            storage: storage
+        )
+    }
+
+    private func scheduleNativeCancellation(
+        conversation: OpaquePointer,
+        generation: UInt64,
+        storage: LiteRTLMConversationStorage
+    ) {
+        let request = LiteRTLMNativeCancellation(
+            conversation: conversation,
+            generation: generation,
+            storage: storage
+        )
+        conversationControlQueue.async {
+            litert_lm_conversation_cancel_process(request.conversation)
+            request.storage.nativeCancelDidReturn(generation: request.generation)
+        }
+    }
+
+    private func deleteManagedConversation(_ storage: LiteRTLMConversationStorage) {
+        if let resources = storage.takeResourcesForDeletion() {
+            litert_lm_conversation_delete(resources.conversation)
+            litert_lm_conversation_config_delete(resources.conversationConfig)
+            litert_lm_session_config_delete(resources.sessionConfig)
+        }
+        managedConversationLock.lock()
+        managedConversations.removeValue(forKey: storage.id)
+        managedConversationLock.unlock()
+        storage.markClosed()
+    }
+
+    private func registerManagedConversation(_ storage: LiteRTLMConversationStorage) {
+        managedConversationLock.lock()
+        managedConversations[storage.id] = storage
+        managedConversationLock.unlock()
+    }
+
+    private func managedConversationSnapshot() -> [LiteRTLMConversationStorage] {
+        managedConversationLock.lock()
+        defer { managedConversationLock.unlock() }
+        return Array(managedConversations.values)
+    }
+
+    private func managedConversationOperationsAllowed() -> Bool {
+        managedConversationLock.lock()
+        defer { managedConversationLock.unlock() }
+        return !isUnloadingManagedConversations
+    }
+
+    private func managedConversationSlotOccupied() -> Bool {
+        managedConversationLock.lock()
+        defer { managedConversationLock.unlock() }
+        return !managedConversations.isEmpty
+    }
+
+    private func setManagedConversationUnloadState(_ unloading: Bool) {
+        managedConversationLock.lock()
+        isUnloadingManagedConversations = unloading
+        managedConversationLock.unlock()
     }
 
     // MARK: - Text Generation (Session API)
@@ -618,9 +1050,10 @@ public final class LiteRTLMEngine: @unchecked Sendable {
                     )
                     litert_lm_session_config_set_sampler_params(sessionConfig, &samplerParams)
 
-                    guard let convConfig = litert_lm_conversation_config_create(
-                        eng, sessionConfig, nil, nil, nil, false
-                    ) else {
+                    // The asc.13 binary used the zero-argument builder and ignored
+                    // the old header's extra constructor arguments. Preserve that
+                    // effective legacy behavior; managed handles use the setter.
+                    guard let convConfig = litert_lm_conversation_config_create() else {
                         litert_lm_session_config_delete(sessionConfig)
                         throw LiteRTLMError.inferenceFailure("Failed to create conversation config")
                     }
@@ -1037,9 +1470,9 @@ public final class LiteRTLMEngine: @unchecked Sendable {
                     )
                     litert_lm_session_config_set_sampler_params(sessionConfig, &samplerParams)
 
-                    guard let convConfig = litert_lm_conversation_config_create(
-                        eng, sessionConfig, nil, nil, nil, false
-                    ) else {
+                    // Preserve asc.13's effective default-config behavior here.
+                    // `makeConversation` is the new configured-handle surface.
+                    guard let convConfig = litert_lm_conversation_config_create() else {
                         litert_lm_session_config_delete(sessionConfig)
                         throw LiteRTLMError.inferenceFailure("Failed to create conversation config")
                     }
@@ -1382,6 +1815,7 @@ private final class StreamCallbackState: @unchecked Sendable {
 public enum LiteRTLMError: LocalizedError {
     case modelNotFound
     case modelNotLoaded
+    case conversationSlotOccupied
     case engineCreationFailed(String)
     case inferenceFailure(String)
 
@@ -1391,6 +1825,8 @@ public enum LiteRTLMError: LocalizedError {
             "LiteRT-LM model file not found"
         case .modelNotLoaded:
             "LiteRT-LM model is not loaded — call load() first"
+        case .conversationSlotOccupied:
+            "LiteRT-LM engine already has a resident conversation — close it before creating another"
         case .engineCreationFailed(let detail):
             "Failed to create LiteRT-LM engine: \(detail)"
         case .inferenceFailure(let detail):

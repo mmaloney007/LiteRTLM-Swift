@@ -56,6 +56,10 @@ typedef struct LiteRtLmConversation LiteRtLmConversation;
 // Opaque pointer for a JSON response.
 typedef struct LiteRtLmJsonResponse LiteRtLmJsonResponse;
 
+// Opaque pointer for a tokenize result.
+// Use `litert_lm_tokenize_result_delete` to free memory.
+typedef struct LiteRtLmTokenizeResult LiteRtLmTokenizeResult;
+
 // Opaque pointer for LiteRT LM Session Config.
 typedef struct LiteRtLmSessionConfig LiteRtLmSessionConfig;
 
@@ -112,18 +116,17 @@ void litert_lm_session_config_delete(LiteRtLmSessionConfig* config);
 // Creates a LiteRT LM Conversation Config.
 // The caller is responsible for destroying the config using
 // `litert_lm_conversation_config_delete`.
-// @param engine The engine to use.
-// @param session_config The session config to use. If NULL, default
-// session config will be used.
-// @param system_message_json The system message in JSON format.
-// @param tools_json The tools description in JSON array format.
-// @param enable_constrained_decoding Whether to enable constrained decoding.
 // @return A pointer to the created config, or NULL on failure.
 LITERT_LM_C_API_EXPORT
-LiteRtLmConversationConfig* litert_lm_conversation_config_create(
-    LiteRtLmEngine* engine, const LiteRtLmSessionConfig* session_config,
-    const char* system_message_json, const char* tools_json,
-    const char* messages_json, bool enable_constrained_decoding);
+LiteRtLmConversationConfig* litert_lm_conversation_config_create();
+
+// Sets the session config for this conversation config.
+// @param config The config to modify.
+// @param session_config The session config to use.
+LITERT_LM_C_API_EXPORT
+void litert_lm_conversation_config_set_session_config(
+    LiteRtLmConversationConfig* config,
+    const LiteRtLmSessionConfig* session_config);
 
 // Destroys a LiteRT LM Conversation Config.
 // @param config The config to destroy.
@@ -439,6 +442,7 @@ int litert_lm_session_generate_content_stream(LiteRtLmSession* session,
 
 // Creates a LiteRT LM Conversation. The caller is responsible for destroying
 // the conversation using `litert_lm_conversation_delete`.
+// Native log (LiteRT-LM v0.11.0, db33d2c): "E0000 engine.cc:923] Failed to create conversation: FAILED_PRECONDITION: A session already exists. Only one session is supported at a time. Please delete the existing session before creating a new one."
 //
 // @param engine The engine to create the conversation from.
 // @param config The conversation config to use. If NULL, the default config
@@ -516,6 +520,31 @@ void litert_lm_conversation_cancel_process(LiteRtLmConversation* conversation);
 LITERT_LM_C_API_EXPORT
 LiteRtLmBenchmarkInfo* litert_lm_conversation_get_benchmark_info(
     LiteRtLmConversation* conversation);
+
+// Tokenizes text using the engine's tokenizer.
+//
+// @param engine The engine instance.
+// @param text The UTF-8 string to tokenize.
+// @return A pointer to the tokenize result, or NULL on failure.
+//   The caller is responsible for deleting the result using
+//   `litert_lm_tokenize_result_delete`.
+LITERT_LM_C_API_EXPORT
+LiteRtLmTokenizeResult* litert_lm_engine_tokenize(LiteRtLmEngine* engine,
+                                                  const char* text);
+
+// Destroys a LiteRT LM Tokenize Result.
+//
+// @param result The tokenize result to destroy.
+LITERT_LM_C_API_EXPORT
+void litert_lm_tokenize_result_delete(LiteRtLmTokenizeResult* result);
+
+// Returns the number of token ids from a tokenize result.
+//
+// @param result The tokenize result.
+// @return The number of token ids.
+LITERT_LM_C_API_EXPORT
+size_t litert_lm_tokenize_result_get_num_tokens(
+    const LiteRtLmTokenizeResult* result);
 
 #ifdef __cplusplus
 }  // extern "C"

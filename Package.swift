@@ -66,5 +66,10 @@ let package = Package(
             ],
             path: "Sources/LiteRTLMSwift"
         ),
+        .testTarget(
+            name: "LiteRTLMSwiftTests",
+            dependencies: ["LiteRTLMSwift"],
+            path: "Tests/LiteRTLMSwiftTests"
+        ),
     ]
 )
