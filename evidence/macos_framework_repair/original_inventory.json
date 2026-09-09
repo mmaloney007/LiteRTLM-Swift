@@ -1,0 +1,648 @@
+{
+  "source_sha": "78b6a420abe418877f127a56cf08bb0c6a7cecd9",
+  "source": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift",
+  "slices": [
+    {
+      "framework": "GemmaConstraints.xcframework",
+      "library": {
+        "BinaryPath": "GemmaConstraints.framework/GemmaConstraints",
+        "LibraryIdentifier": "ios-arm64",
+        "LibraryPath": "GemmaConstraints.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/ios-arm64/GemmaConstraints.framework/GemmaConstraints",
+          "size": 20860384,
+          "sha256": "bff3d79e6e0d37dec687581ff31052a76f0673543ea536d050c4295047fc9f07"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/ios-arm64/GemmaConstraints.framework/Info.plist",
+          "size": 721,
+          "sha256": "c9d4891fa5abf504f685316a8321d4f98dfe9e2fad736c40a5b4c026b65edb63"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/ios-arm64/GemmaConstraints.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "14adf60c46f13e51eca6b9fc6f9e76aa3d5b428a8e1ffa7d45236cc7a1988b64"
+        }
+      ]
+    },
+    {
+      "framework": "GemmaConstraints.xcframework",
+      "library": {
+        "BinaryPath": "GemmaConstraints.framework/GemmaConstraints",
+        "LibraryIdentifier": "ios-arm64-simulator",
+        "LibraryPath": "GemmaConstraints.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios",
+        "SupportedPlatformVariant": "simulator"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/ios-arm64-simulator/GemmaConstraints.framework/GemmaConstraints",
+          "size": 20071904,
+          "sha256": "c3eec2a1dc4c1613a1a06fabafd2f328f96cb6cac6834b0fa60cec8c27c82cff"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/ios-arm64-simulator/GemmaConstraints.framework/Info.plist",
+          "size": 721,
+          "sha256": "c9d4891fa5abf504f685316a8321d4f98dfe9e2fad736c40a5b4c026b65edb63"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/ios-arm64-simulator/GemmaConstraints.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "14adf60c46f13e51eca6b9fc6f9e76aa3d5b428a8e1ffa7d45236cc7a1988b64"
+        }
+      ]
+    },
+    {
+      "framework": "GemmaConstraints.xcframework",
+      "library": {
+        "BinaryPath": "GemmaConstraints.framework/Versions/A/GemmaConstraints",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "GemmaConstraints.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/GemmaConstraints",
+          "symlink": "Versions/Current/GemmaConstraints"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/Versions/A/GemmaConstraints",
+          "size": 9161312,
+          "sha256": "50c877e790557350f6df92e1dc69f0db14b6151f160e34ea73615954a28d7c1d"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/Versions/A/Resources/Info.plist",
+          "size": 679,
+          "sha256": "384c9d2de9cd9e83ff339a8103eccfd0ad215581a24eef9cf63acbced641c7c1"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2442,
+          "sha256": "30215180053c8b4fac692f6d4048f7dec956d409e75f8a9a84041b066aea51df"
+        },
+        {
+          "path": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/GemmaConstraints:\n\t@rpath/libGemmaModelConstraintProvider.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4201.0.0)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2000.67.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4201.0.0)\n"
+    },
+    {
+      "framework": "LiteRTLM.xcframework",
+      "library": {
+        "BinaryPath": "CLiteRTLM.framework/Versions/A/CLiteRTLM",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "CLiteRTLM.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/CLiteRTLM",
+          "symlink": "Versions/Current/CLiteRTLM"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Headers",
+          "symlink": "Versions/Current/Headers"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Modules",
+          "symlink": "Versions/Current/Modules"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/CLiteRTLM",
+          "size": 28981616,
+          "sha256": "3f67f858d8b5c63fef7f012dabccf745d9ac2b7c5958d8b91227aa9a0e23f1c1"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/Headers/engine.h",
+          "size": 20541,
+          "sha256": "b28f97c1d0fc5e47ae66656b35b55b85aa113cb01dd28e58ef6c664623064eed"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/Headers/litert_lm_logging.h",
+          "size": 996,
+          "sha256": "1a86392514e327a3900676d12ee6eb7dd2e885dda53ca303405ea7001df83c27"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/Modules/module.modulemap",
+          "size": 66,
+          "sha256": "ebea7c854323ac196a728fedb7c802ab389e5e7452b171a897f074f942083fe6"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/Resources/Info.plist",
+          "size": 658,
+          "sha256": "6373ce4dc0c820ef16099987712b5407ee9289738001194cee0aecc5a0330987"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2875,
+          "sha256": "18f9be61f974cca3327694ef8d474ed985c5d9b293557b5a3acd00cad186c998"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/CLiteRTLM:\n\t@rpath/CLiteRTLM.framework/Versions/A/CLiteRTLM (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2100.43.0)\n\t@rpath/GemmaConstraints.framework/Versions/A/GemmaConstraints (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox (compatibility version 1.0.0, current version 1000.0.0)\n\t/System/Library/Frameworks/AVFoundation.framework/Versions/A/AVFoundation (compatibility version 1.0.0, current version 2.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/usr/lib/libresolv.9.dylib (compatibility version 1.0.0, current version 1.0.0)\n\t/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 372.16.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4424.1.255)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4424.1.255)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n"
+    },
+    {
+      "framework": "LiteRTLM.xcframework",
+      "library": {
+        "BinaryPath": "CLiteRTLM.framework/CLiteRTLM",
+        "LibraryIdentifier": "ios-arm64-simulator",
+        "LibraryPath": "CLiteRTLM.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios",
+        "SupportedPlatformVariant": "simulator"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64-simulator/CLiteRTLM.framework/CLiteRTLM",
+          "size": 28545248,
+          "sha256": "cc74420760ff0e836decdfb597f6208a6975aa3d042f1944388fb97a0560942f"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64-simulator/CLiteRTLM.framework/Headers/engine.h",
+          "size": 20541,
+          "sha256": "b28f97c1d0fc5e47ae66656b35b55b85aa113cb01dd28e58ef6c664623064eed"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64-simulator/CLiteRTLM.framework/Headers/litert_lm_logging.h",
+          "size": 996,
+          "sha256": "1a86392514e327a3900676d12ee6eb7dd2e885dda53ca303405ea7001df83c27"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64-simulator/CLiteRTLM.framework/Info.plist",
+          "size": 633,
+          "sha256": "882abc81063155f210d8858560f27ddc01d39e84699e6d96871c9b1a47ce8973"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64-simulator/CLiteRTLM.framework/Modules/module.modulemap",
+          "size": 66,
+          "sha256": "ebea7c854323ac196a728fedb7c802ab389e5e7452b171a897f074f942083fe6"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64-simulator/CLiteRTLM.framework/_CodeSignature/CodeResources",
+          "size": 2498,
+          "sha256": "c514baf6801051faadb5a26ea332aab3981b798321d48feab967a49abf95aef8"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRTLM.xcframework",
+      "library": {
+        "BinaryPath": "CLiteRTLM.framework/CLiteRTLM",
+        "LibraryIdentifier": "ios-arm64",
+        "LibraryPath": "CLiteRTLM.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64/CLiteRTLM.framework/CLiteRTLM",
+          "size": 28424352,
+          "sha256": "2fc3891322b1dc6481812a322e8a10c916f13a2d03633db3f16552e12c0b858f"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64/CLiteRTLM.framework/Headers/engine.h",
+          "size": 20541,
+          "sha256": "b28f97c1d0fc5e47ae66656b35b55b85aa113cb01dd28e58ef6c664623064eed"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64/CLiteRTLM.framework/Headers/litert_lm_logging.h",
+          "size": 996,
+          "sha256": "1a86392514e327a3900676d12ee6eb7dd2e885dda53ca303405ea7001df83c27"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64/CLiteRTLM.framework/Info.plist",
+          "size": 700,
+          "sha256": "ce23b73868e74928d293d079e221973e21f9a8c92da4f2d55621dd974e9f170b"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64/CLiteRTLM.framework/Modules/module.modulemap",
+          "size": 66,
+          "sha256": "ebea7c854323ac196a728fedb7c802ab389e5e7452b171a897f074f942083fe6"
+        },
+        {
+          "path": "Frameworks/LiteRTLM.xcframework/ios-arm64/CLiteRTLM.framework/_CodeSignature/CodeResources",
+          "size": 2498,
+          "sha256": "914f9e60ba1c85c6509d5dd28092792a976856efb119e1dfe29185450b1a0767"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtMetalAccelerator.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator",
+        "LibraryIdentifier": "ios-arm64",
+        "LibraryPath": "LiteRtMetalAccelerator.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/ios-arm64/LiteRtMetalAccelerator.framework/Info.plist",
+          "size": 691,
+          "sha256": "53f890d0b7483753f753701a6c2eb4222853a17f71dc0aaa16dd468e05ca707d"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/ios-arm64/LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator",
+          "size": 7545984,
+          "sha256": "d25637ca7e43f875d9f8d5379db065f255fb57ecf21650e2b1f8d828e3c26b27"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/ios-arm64/LiteRtMetalAccelerator.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "9a50aa7561e7683019c1382f0ca7b41260c544b7105b090777b8201e1e5cfdf2"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtMetalAccelerator.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator",
+        "LibraryIdentifier": "ios-arm64-simulator",
+        "LibraryPath": "LiteRtMetalAccelerator.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios",
+        "SupportedPlatformVariant": "simulator"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/ios-arm64-simulator/LiteRtMetalAccelerator.framework/Info.plist",
+          "size": 691,
+          "sha256": "53f890d0b7483753f753701a6c2eb4222853a17f71dc0aaa16dd468e05ca707d"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/ios-arm64-simulator/LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator",
+          "size": 6873392,
+          "sha256": "e2f2584d5aa760e5c21e08aa18cba0c83ea3094e0c88a1475882b766a92d72e6"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/ios-arm64-simulator/LiteRtMetalAccelerator.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "9a50aa7561e7683019c1382f0ca7b41260c544b7105b090777b8201e1e5cfdf2"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtMetalAccelerator.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtMetalAccelerator.framework/Versions/A/LiteRtMetalAccelerator",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "LiteRtMetalAccelerator.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator",
+          "symlink": "Versions/Current/LiteRtMetalAccelerator"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/Versions/A/LiteRtMetalAccelerator",
+          "size": 9940976,
+          "sha256": "549abc8176e41e076e765d95a3be13dbc6b4d327624e77675fda2e7bd3bd9218"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/Versions/A/Resources/Info.plist",
+          "size": 697,
+          "sha256": "bd15af7cdbab156e8ee9ddf32a89a45fd58100435670554211b946622f0e6908"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2442,
+          "sha256": "3f643282f11cfdba25f344364f23c0a9c8398c7185e2179796051e917db4823e"
+        },
+        {
+          "path": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator:\n\t@rpath/libLiteRtMetalAccelerator.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 370.64.2)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4201.0.0)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2000.67.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4201.0.0)\n"
+    },
+    {
+      "framework": "LiteRtRuntime.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtRuntime.framework/LiteRtRuntime",
+        "LibraryIdentifier": "ios-arm64",
+        "LibraryPath": "LiteRtRuntime.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/ios-arm64/LiteRtRuntime.framework/Info.plist",
+          "size": 664,
+          "sha256": "f0563c4410d80ef6c958510232115a473b60f4951ebc55f2f9585c5769b50660"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/ios-arm64/LiteRtRuntime.framework/LiteRtRuntime",
+          "size": 7433152,
+          "sha256": "bfddd3838363cbdf04a21dc7593f5d2f46e601a2167f0ca534f4ce1b43921a2f"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/ios-arm64/LiteRtRuntime.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "9baf27a7fbb47d54c9ed20756800ecd9abacf0842c6bf8bb68e4176c3f8d41c8"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtRuntime.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtRuntime.framework/LiteRtRuntime",
+        "LibraryIdentifier": "ios-arm64-simulator",
+        "LibraryPath": "LiteRtRuntime.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios",
+        "SupportedPlatformVariant": "simulator"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/ios-arm64-simulator/LiteRtRuntime.framework/Info.plist",
+          "size": 664,
+          "sha256": "f0563c4410d80ef6c958510232115a473b60f4951ebc55f2f9585c5769b50660"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/ios-arm64-simulator/LiteRtRuntime.framework/LiteRtRuntime",
+          "size": 7225600,
+          "sha256": "586a936757c0631b2f9440f2b76fbe6a407ef499bb5ba508fd97bcd755805b77"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/ios-arm64-simulator/LiteRtRuntime.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "9baf27a7fbb47d54c9ed20756800ecd9abacf0842c6bf8bb68e4176c3f8d41c8"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtRuntime.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtRuntime.framework/Versions/A/LiteRtRuntime",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "LiteRtRuntime.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/LiteRtRuntime",
+          "symlink": "Versions/Current/LiteRtRuntime"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/Versions/A/LiteRtRuntime",
+          "size": 10401712,
+          "sha256": "090f1484c0fde0c985c85309c34d33690a6fa80cd663de89020145e939483962"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/Versions/A/Resources/Info.plist",
+          "size": 670,
+          "sha256": "2878840ae8c0157a316ae5d61507b2dfff44f564fdda8e9e4fec84a0f664b5d2"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2442,
+          "sha256": "9519ce1a0b0c78bfabff38ec05f331e777829b736223000af56f7422669d9cd0"
+        },
+        {
+          "path": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/LiteRtRuntime:\n\t@rpath/libLiteRt.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 370.64.2)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4201.0.0)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2000.67.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4201.0.0)\n"
+    },
+    {
+      "framework": "LiteRtTopKMetalSampler.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtTopKMetalSampler.framework/Versions/A/LiteRtTopKMetalSampler",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "LiteRtTopKMetalSampler.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler",
+          "symlink": "Versions/Current/LiteRtTopKMetalSampler"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/Versions/A/LiteRtTopKMetalSampler",
+          "size": 8313984,
+          "sha256": "5ccd5d8fd445bbf268a4428f04e807bfe127d2e574ac068d6b8489edc693aa5d"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/Versions/A/Resources/Info.plist",
+          "size": 697,
+          "sha256": "637df0bb24970c56be0af8c090938fecc90d8a4cb37821d52654f4577e001722"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2442,
+          "sha256": "b45fa049ddc7d0903454d03d59d012ca344476aa1e62da82fc01b4329ed1d690"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler:\n\t@rpath/libLiteRtTopKMetalSampler.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t@rpath/libLiteRt.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 370.64.2)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4201.0.0)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2000.67.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4201.0.0)\n"
+    },
+    {
+      "framework": "LiteRtTopKMetalSampler.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler",
+        "LibraryIdentifier": "ios-arm64-simulator",
+        "LibraryPath": "LiteRtTopKMetalSampler.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios",
+        "SupportedPlatformVariant": "simulator"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/ios-arm64-simulator/LiteRtTopKMetalSampler.framework/Info.plist",
+          "size": 691,
+          "sha256": "13504d0c97d1f4e0544bdb5ff824678647905cbaf6da403aff9911efc21e503a"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/ios-arm64-simulator/LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler",
+          "size": 34896,
+          "sha256": "d15ceb45baf92d0a43caa4063bb1c7946de7f060cd712ceedf89a101b077a756"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/ios-arm64-simulator/LiteRtTopKMetalSampler.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "0c7549e77151c4da25eff5888e9d42de2c087025dec832bcf2bcd3bb430fc350"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtTopKMetalSampler.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler",
+        "LibraryIdentifier": "ios-arm64",
+        "LibraryPath": "LiteRtTopKMetalSampler.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "ios"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/ios-arm64/LiteRtTopKMetalSampler.framework/Info.plist",
+          "size": 691,
+          "sha256": "13504d0c97d1f4e0544bdb5ff824678647905cbaf6da403aff9911efc21e503a"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/ios-arm64/LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler",
+          "size": 6010512,
+          "sha256": "63a0393231b6db24a20326a23ae240de185f35da29b5186c0367527252140e9d"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKMetalSampler.xcframework/ios-arm64/LiteRtTopKMetalSampler.framework/_CodeSignature/CodeResources",
+          "size": 1798,
+          "sha256": "0c7549e77151c4da25eff5888e9d42de2c087025dec832bcf2bcd3bb430fc350"
+        }
+      ]
+    },
+    {
+      "framework": "LiteRtTopKWebGpuSampler.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtTopKWebGpuSampler.framework/Versions/A/LiteRtTopKWebGpuSampler",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "LiteRtTopKWebGpuSampler.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/LiteRtTopKWebGpuSampler",
+          "symlink": "Versions/Current/LiteRtTopKWebGpuSampler"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/Versions/A/LiteRtTopKWebGpuSampler",
+          "size": 22310288,
+          "sha256": "93b6f0ad8002f9b9ea9a732bfb87e1185dc1b3a4d883f6299cd170a66c1ef91f"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/Versions/A/Resources/Info.plist",
+          "size": 700,
+          "sha256": "81c8201c1abd03495ecec5e51f5220f87d9b6ba2ee255b73a4ae82c9168283fd"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2442,
+          "sha256": "fd6687e456733146ee9430626949e92c45a676190e00788e949ca43c4709f9a1"
+        },
+        {
+          "path": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/LiteRtTopKWebGpuSampler:\n\t@rpath/libLiteRtTopKWebGpuSampler.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t@rpath/libLiteRt.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)\n\t/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface (compatibility version 1.0.0, current version 1.0.0)\n\t/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 370.64.2)\n\t/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1193.49.3)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4201.0.0)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2000.67.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4201.0.0)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n"
+    },
+    {
+      "framework": "LiteRtWebGpuAccelerator.xcframework",
+      "library": {
+        "BinaryPath": "LiteRtWebGpuAccelerator.framework/Versions/A/LiteRtWebGpuAccelerator",
+        "LibraryIdentifier": "macos-arm64",
+        "LibraryPath": "LiteRtWebGpuAccelerator.framework",
+        "SupportedArchitectures": [
+          "arm64"
+        ],
+        "SupportedPlatform": "macos"
+      },
+      "entries": [
+        {
+          "path": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/LiteRtWebGpuAccelerator",
+          "symlink": "Versions/Current/LiteRtWebGpuAccelerator"
+        },
+        {
+          "path": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/Resources",
+          "symlink": "Versions/Current/Resources"
+        },
+        {
+          "path": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/Versions/A/LiteRtWebGpuAccelerator",
+          "size": 24136912,
+          "sha256": "9462e26870ca369e179050749605318a1afeff65ff5bddac260b5a4497bab4ce"
+        },
+        {
+          "path": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/Versions/A/Resources/Info.plist",
+          "size": 700,
+          "sha256": "c5a3271851cc5b829471a898b7d3c4f0a7799953e29545a14480d754905e8665"
+        },
+        {
+          "path": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/Versions/A/_CodeSignature/CodeResources",
+          "size": 2442,
+          "sha256": "ac9bc925f4ad8674532bab7ebdeed601d65982f32e78b166f0f5f6b87943b851"
+        },
+        {
+          "path": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/Versions/Current",
+          "symlink": "A"
+        }
+      ],
+      "install_names": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift/Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/LiteRtWebGpuAccelerator:\n\t@rpath/libLiteRtWebGpuAccelerator.dylib (compatibility version 0.0.0, current version 0.0.0)\n\t/System/Library/Frameworks/Metal.framework/Versions/A/Metal (compatibility version 1.0.0, current version 370.64.2)\n\t/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)\n\t/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 4201.0.0)\n\t/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)\n\t/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit (compatibility version 1.0.0, current version 275.0.0)\n\t/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface (compatibility version 1.0.0, current version 1.0.0)\n\t/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore (compatibility version 1.2.0, current version 1193.49.3)\n\t/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2000.67.0)\n\t/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 4201.0.0)\n"
+    }
+  ]
+}

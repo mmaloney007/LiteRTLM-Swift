@@ -1,0 +1,99 @@
+{
+  "source_sha": "78b6a420abe418877f127a56cf08bb0c6a7cecd9",
+  "inventory_sha256": "1f77de6030b3e2820c4cf9daa004a7e3b17f34896391dfa7453100eade2b7b37",
+  "source": "/private/tmp/meminia-verify-build01-evidence/derived/SourcePackages/checkouts/LiteRTLM-Swift",
+  "destination": "/private/tmp/meminia-macos-package-v2",
+  "mapping": {
+    "@rpath/libGemmaModelConstraintProvider.dylib": "@rpath/GemmaConstraints.framework/GemmaConstraints",
+    "@rpath/libLiteRtMetalAccelerator.dylib": "@rpath/LiteRtMetalAccelerator.framework/LiteRtMetalAccelerator",
+    "@rpath/libLiteRt.dylib": "@rpath/LiteRtRuntime.framework/LiteRtRuntime",
+    "@rpath/libLiteRtTopKMetalSampler.dylib": "@rpath/LiteRtTopKMetalSampler.framework/LiteRtTopKMetalSampler",
+    "@rpath/libLiteRtTopKWebGpuSampler.dylib": "@rpath/LiteRtTopKWebGpuSampler.framework/LiteRtTopKWebGpuSampler",
+    "@rpath/libLiteRtWebGpuAccelerator.dylib": "@rpath/LiteRtWebGpuAccelerator.framework/LiteRtWebGpuAccelerator"
+  },
+  "changed": {
+    "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework/Versions/A/GemmaConstraints": {
+      "before": {
+        "sha256": "50c877e790557350f6df92e1dc69f0db14b6151f160e34ea73615954a28d7c1d",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "6b318f32af9c41c8f9c1c5db25a71e2548a1826500a78f27a46fad73d716a26c",
+        "mode": 365
+      }
+    },
+    "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/CLiteRTLM": {
+      "before": {
+        "sha256": "3f67f858d8b5c63fef7f012dabccf745d9ac2b7c5958d8b91227aa9a0e23f1c1",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "f048cd0d029294f675cc22330a55d10da1c1908679dd4c65ca2317a1618d9c01",
+        "mode": 365
+      }
+    },
+    "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework/Versions/A/_CodeSignature/CodeResources": {
+      "before": {
+        "sha256": "18f9be61f974cca3327694ef8d474ed985c5d9b293557b5a3acd00cad186c998",
+        "mode": 292
+      },
+      "after": {
+        "sha256": "f9e7f26170dfcc5cbaee8bed9ca032ff3fd46af804906622bfee33d5eda6f19c",
+        "mode": 292
+      }
+    },
+    "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework/Versions/A/LiteRtMetalAccelerator": {
+      "before": {
+        "sha256": "549abc8176e41e076e765d95a3be13dbc6b4d327624e77675fda2e7bd3bd9218",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "c645e10e13c6922b581b2c2e3e0b699731a93ba3b1e1b84128f790ec8b75a239",
+        "mode": 365
+      }
+    },
+    "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework/Versions/A/LiteRtRuntime": {
+      "before": {
+        "sha256": "090f1484c0fde0c985c85309c34d33690a6fa80cd663de89020145e939483962",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "ac5901d13dfe21579b5711f0cb7efbffd8a1c3a311f5a7ab34b9120bbb5f5e6d",
+        "mode": 365
+      }
+    },
+    "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework/Versions/A/LiteRtTopKMetalSampler": {
+      "before": {
+        "sha256": "5ccd5d8fd445bbf268a4428f04e807bfe127d2e574ac068d6b8489edc693aa5d",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "d72f92da40338e4df840cf622feefb8dc118d11c0cde67c198697e93c5fb19b7",
+        "mode": 365
+      }
+    },
+    "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework/Versions/A/LiteRtTopKWebGpuSampler": {
+      "before": {
+        "sha256": "93b6f0ad8002f9b9ea9a732bfb87e1185dc1b3a4d883f6299cd170a66c1ef91f",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "5a4732bd60c33aff9983fcb0788ed8bb38af9cca29134549aeac162cdf0bf8ce",
+        "mode": 365
+      }
+    },
+    "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework/Versions/A/LiteRtWebGpuAccelerator": {
+      "before": {
+        "sha256": "9462e26870ca369e179050749605318a1afeff65ff5bddac260b5a4497bab4ce",
+        "mode": 365
+      },
+      "after": {
+        "sha256": "ca7a07c174b022cf60ec72f8b8af59717dfb9c8277a52d200d52e442b282026f",
+        "mode": 365
+      }
+    }
+  },
+  "non_macos_slices_unchanged": 10,
+  "original_unchanged": true,
+  "scope": "Package file contents, file modes and symlink targets verified; xattrs and hard-link topology not claimed. Local ad-hoc signatures prove consistency, not vendor authenticity. Source pin and original hashes retain input provenance. Fresh app build and independent verification owed"
+}

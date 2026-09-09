@@ -1,0 +1,91 @@
+{
+  "commands": [
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/GemmaConstraints.xcframework/macos-arm64/GemmaConstraints.framework"
+    },
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/LiteRTLM.xcframework/macos-arm64/CLiteRTLM.framework"
+    },
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/LiteRtMetalAccelerator.xcframework/macos-arm64/LiteRtMetalAccelerator.framework"
+    },
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/LiteRtRuntime.xcframework/macos-arm64/LiteRtRuntime.framework"
+    },
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/LiteRtTopKMetalSampler.xcframework/macos-arm64/LiteRtTopKMetalSampler.framework"
+    },
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/LiteRtTopKWebGpuSampler.xcframework/macos-arm64/LiteRtTopKWebGpuSampler.framework"
+    },
+    {
+      "command": [
+        "codesign",
+        "--verify",
+        "--strict",
+        "--verbose=4",
+        "/private/tmp/meminia-macos-package-v2/Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework"
+      ],
+      "exit": 0,
+      "framework": "Frameworks/LiteRtWebGpuAccelerator.xcframework/macos-arm64/LiteRtWebGpuAccelerator.framework"
+    }
+  ],
+  "strict_signatures_passed": 7,
+  "nonmacos_slices_unchanged": 10,
+  "clitert_header": {
+    "sha256": "b28f97c1d0fc5e47ae66656b35b55b85aa113cb01dd28e58ef6c664623064eed",
+    "mode": 292
+  },
+  "script_sha256": "c099abd33c6659ad834b9bb4672e3993fd306047c07401b98095d94d787b19ee",
+  "receipt_sha256": "3467ebf5c8c5286017939b5c9ba6a3beb90cafab561ca78e62b32cab8f79bbad",
+  "output": "/private/tmp/meminia-macos-package-v2",
+  "scope": "Read-only supplemental output check; fresh app acceptance and committed-dependency verification owed"
+}
